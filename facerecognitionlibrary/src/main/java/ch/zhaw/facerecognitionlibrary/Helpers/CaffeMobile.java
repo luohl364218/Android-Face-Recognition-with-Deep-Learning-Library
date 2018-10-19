@@ -4,6 +4,8 @@ All rights reserved.
 
 package ch.zhaw.facerecognitionlibrary.Helpers;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Created by shiro on 3/26/15.
  */
@@ -24,7 +26,12 @@ public class CaffeMobile {
 
     public native int[] predictImage(String imgPath, int k);
 
-    public native float[][] extractFeatures(String imgPath, String blobNames);
+    /*
+    * adjust this method's parameters to its origin form,
+    * if we don't fix this, we can't get the JNI-LIBS for other platforms (arm64-v8a、armeabi、x86、x86_64)
+    * look at this https://github.com/sh1r0/caffe-android-demo/tree/master/app/src/main/java/com/sh1r0/caffe_android_lib
+    * */
+    public native float[][] extractFeatures(byte[] data, int width, int height, String blobNames);
 
     public void setMean(float[] meanValues) {
         setMeanWithMeanValues(meanValues);
@@ -39,6 +46,10 @@ public class CaffeMobile {
     }
 
     public float[][] getRepresentationLayer(String imgPath, String layer){
-        return extractFeatures(imgPath, layer);
+        return extractFeatures(stringToBytes(imgPath), 0, 0, layer);
+    }
+
+    private static byte[] stringToBytes(String s) {
+        return s.getBytes(StandardCharsets.US_ASCII);
     }
 }
