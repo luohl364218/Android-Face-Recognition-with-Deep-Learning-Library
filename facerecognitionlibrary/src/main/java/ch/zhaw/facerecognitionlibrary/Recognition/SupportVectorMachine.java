@@ -92,9 +92,16 @@ public class SupportVectorMachine implements Recognition {
         fh.saveStringList(trainingList, trainingFile);
 
         // linear kernel -t 0
+        //-t kernel_type : set type of kernel function (default 2)
+        // 0 -- linear: u'*v
+        // 1 -- polynomial: (gamma*u'*v + coef0)^degree
+        // 2 -- radial basis function: exp(-gamma*|u-v|^2)
+        // 3 -- sigmoid: tanh(gamma*u'*v + coef0)
+        // 4 -- precomputed kernel (kernel values in training_set_file)
         String svmTrainOptions = preferencesHelper.getSvmTrainOptions();
         String training = trainingFile.getAbsolutePath();
         String model = trainingFile.getAbsolutePath() + "_model";
+        //Usage: svm-train [options] training_set_file [model_file]
         jniSvmTrain(svmTrainOptions + " " + training + " " + model);
 
         saveToFile();
@@ -205,6 +212,9 @@ public class SupportVectorMachine implements Recognition {
     }
 
     public Mat getFeatureVector(Mat img){
+        //cn:表示通道数channels，如果设为0，则表示保持通道数不变，否则则变为设置的通道数
+        //rows;表示矩阵函数，如果设为0，则表示所有函数不变，否则则变为设置的函数
+        //25 * 25的图像转为了 1 * 625
         return img.reshape(1,1);
     }
 
