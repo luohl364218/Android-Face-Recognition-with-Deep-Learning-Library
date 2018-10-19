@@ -126,7 +126,7 @@ public class PreferencesHelper {
     }
 
     public String getCaffeOutputLayer(){
-        return sharedPreferences.getString("key_outputLayerCaffe", resources.getString(R.string.weightsFileCaffe));
+        return sharedPreferences.getString("key_outputLayerCaffe", resources.getString(R.string.outputLayerCaffe));
     }
 
     public float[] getCaffeMeanValues(){
