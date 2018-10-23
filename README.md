@@ -13,3 +13,6 @@ https://qualeams.github.io/Android-Face-Recognition-with-Deep-Learning-Library/
 ### (Recommended) Include as an Android module from source
 1. git clone https://github.com/luohl364218/Android-Face-Recognition-with-Deep-Learning-Library.git
 2. Import the facerecognitionlibrary in the existing Android Studio project
+
+### How to build the JNI files for our own app's package?
+look at this https://blog.csdn.net/lhl1124281072/article/details/83187794
